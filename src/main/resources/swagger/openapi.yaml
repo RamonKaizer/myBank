@@ -13,8 +13,6 @@ externalDocs:
 servers:
   - url: http://localhost:8080/v1
 tags:
-  - name: transaction
-    description: Access to Transactions
   - name: user
     description: Operations about user
 paths:

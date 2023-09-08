@@ -13,29 +13,29 @@ externalDocs:
 servers:
   - url: http://localhost:8080/v1
 tags:
-  - name: user
-    description: Operations about user
+  - name: person
+    description: Operations about person
 paths:
-  /user:
+  /person:
     post:
       tags:
-        - user
-      summary: Create user
-      description: This can only be done by the logged off user.
-      operationId: createUser
+        - person
+      summary: Create person
+      description: This can only be done by the logged off person.
+      operationId: createPerson
       requestBody:
-        description: Created user object
+        description: Created person object
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserRequest'
+              $ref: '#/components/schemas/PersonRequest'
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreatedUserResponse'
+                $ref: '#/components/schemas/CreatedPersonResponse'
         "400":
           description: Bad Request
           content:
@@ -45,30 +45,49 @@ paths:
 
 components:
   schemas:
-    UserRequest:
+    PersonRequest:
       type: object
       properties:
-        fullName:
+        firstName:
           type: string
-          example: theUser
+          example: John
+        lastName:
+          type: string
+          example: Kennedy
         email:
           type: string
           example: john@email.com
         password:
           type: string
+          format: password
           example: '12345'
-        cpfCnpj:
+        cpf:
           type: string
           example: '12345678910'
           minLength: 11
           maxLength: 14
+        wallet:
+          type: number
+          format: double
+          example: 120.667
+        personType:
+          type: string
+          enum: [SHOPKEEPER, USER]
+        birth:
+          type: string
+          format: date
+          example: "1990-09-07"
       required:
-        - fullName
+        - firstName
+        - lastName
         - email
         - password
-        - cpfCnpj
+        - cpf
+        - wallet
+        - personType
+        - birth
 
-    CreatedUserResponse:
+    CreatedPersonResponse:
       type: object
       properties:
         id:

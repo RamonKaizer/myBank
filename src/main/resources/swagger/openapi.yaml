@@ -13,29 +13,29 @@ externalDocs:
 servers:
   - url: http://localhost:8080/v1
 tags:
-  - name: person
-    description: Operations about person
+  - name: user
+    description: Operations about user
 paths:
-  /person:
+  /user:
     post:
       tags:
-        - person
-      summary: Create person
-      description: This can only be done by the logged off person.
-      operationId: createPerson
+        - user
+      summary: Create user
+      description: This can only be done by the logged off user.
+      operationId: createUser
       requestBody:
-        description: Created person object
+        description: Created user object
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PersonRequest'
+              $ref: '#/components/schemas/UserRequest'
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreatedPersonResponse'
+                $ref: '#/components/schemas/CreatedUserResponse'
         "400":
           description: Bad Request
           content:
@@ -45,15 +45,12 @@ paths:
 
 components:
   schemas:
-    PersonRequest:
+    UserRequest:
       type: object
       properties:
-        firstName:
+        fullName:
           type: string
-          example: John
-        lastName:
-          type: string
-          example: Kennedy
+          example: John Kennedy
         email:
           type: string
           example: john@email.com
@@ -61,33 +58,18 @@ components:
           type: string
           format: password
           example: '12345'
-        cpf:
+        cpfCnpj:
           type: string
           example: '12345678910'
           minLength: 11
           maxLength: 14
-        wallet:
-          type: number
-          format: double
-          example: 120.667
-        personType:
-          type: string
-          enum: [SHOPKEEPER, USER]
-        birth:
-          type: string
-          format: date
-          example: "1990-09-07"
       required:
-        - firstName
-        - lastName
+        - fullName
         - email
         - password
-        - cpf
-        - wallet
-        - personType
-        - birth
+        - cpfCnpj
 
-    CreatedPersonResponse:
+    CreatedUserResponse:
       type: object
       properties:
         id:
@@ -99,6 +81,10 @@ components:
         accountNumber:
           type: string
           example: "312udncvuhsd901231cml"
+        wallet:
+          type: number
+          format: double
+          example: 0.00
 
     ErrorResponse:
       type: object

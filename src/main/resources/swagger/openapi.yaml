@@ -78,13 +78,18 @@ components:
         name:
           type: string
           description: "Nome do usuario"
+        wallet:
+          $ref: '#/components/schemas/Wallet'
+
+    Wallet:
+      type: object
+      properties:
         accountNumber:
           type: string
-          example: "312udncvuhsd901231cml"
-        wallet:
+          example: "4235652"
+        balance:
           type: number
           format: double
-          example: 0.00
 
     ErrorResponse:
       type: object

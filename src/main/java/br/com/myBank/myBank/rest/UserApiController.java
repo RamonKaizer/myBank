@@ -25,6 +25,6 @@ public class UserApiController implements UserApi {
 
         var user = service.saveUser(modelMapper.map(request, User.class));
 
-        return null;
+        return ResponseEntity.ok(modelMapper.map(user, CreatedUserResponse.class));
     }
 }

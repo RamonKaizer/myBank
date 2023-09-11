@@ -24,11 +24,10 @@ public class UserService {
         createSettingsUser(user);
 
         try {
-            repository.save(user);
+            return repository.save(user);
         } catch (RuntimeException e) {
             throw new ErroException("error saving user", e);
         }
-        return user;
     }
 
     private void createSettingsUser(User user) {

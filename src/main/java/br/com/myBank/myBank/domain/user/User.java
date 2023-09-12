@@ -1,11 +1,15 @@
 package br.com.myBank.myBank.domain.user;
 
 import br.com.myBank.myBank.domain.enums.EnumUserType;
+import br.com.myBank.myBank.domain.transaction.Transaction;
 import br.com.myBank.myBank.domain.wallet.Wallet;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -34,6 +38,12 @@ public class User {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Wallet wallet;
+
+    @OneToMany(mappedBy = "payer")
+    private List<Transaction> transactionAsPayer = new ArrayList<>();
+
+    @OneToMany(mappedBy = "payee")
+    private List<Transaction> transactionAsPayee = new ArrayList<>();
 
     public void addWallet(Wallet wallet){
         this.wallet = wallet;

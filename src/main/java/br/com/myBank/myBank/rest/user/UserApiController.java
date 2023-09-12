@@ -1,4 +1,4 @@
-package br.com.myBank.myBank.rest;
+package br.com.myBank.myBank.rest.user;
 
 import br.com.myBank.myBank.domain.user.User;
 import br.com.myBank.myBank.service.user.UserService;

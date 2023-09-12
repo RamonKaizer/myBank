@@ -15,13 +15,16 @@ servers:
 tags:
   - name: user
     description: Operations about user
+  - name: transaction
+    description: Operations about transfer
+
 paths:
   /user:
     post:
       tags:
         - user
       summary: Create user
-      description: This can only be done by the logged off user.
+      description: Create user.
       operationId: createUser
       requestBody:
         description: Created user object
@@ -36,6 +39,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreatedUserResponse'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /transaction:
+    post:
+      tags:
+        - transaction
+      summary: Make transfer
+      description: make transfer between accounts
+      operationId: makeTransfer
+      requestBody:
+        description: accounts and values
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionRequest'
+      responses:
+        "200":
+          description: OK
+
         "400":
           description: Bad Request
           content:
@@ -89,7 +115,24 @@ components:
           example: "4235652"
         balance:
           type: number
-          format: double
+          format: decimal
+          example: 992.95
+
+    TransactionRequest:
+      type: object
+      properties:
+        payer:
+          type: integer
+          format: int64
+          example: 1
+        payee:
+          type: integer
+          format: int64
+          example: 2
+        value:
+          type: number
+          format: decimal
+          example: 99.95
 
     ErrorResponse:
       type: object

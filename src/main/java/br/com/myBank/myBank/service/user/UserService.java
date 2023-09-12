@@ -40,4 +40,10 @@ public class UserService {
         user.checkUserType();
     }
 
+    public User getUserbyId(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ErroException("User não encontrado com o ID: " + id));
+
+    }
+
 }

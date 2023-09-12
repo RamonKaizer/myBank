@@ -1,4 +1,4 @@
-package com.br.myBank.myBank;
+package br.com.myBank.myBank;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

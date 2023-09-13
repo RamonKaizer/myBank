@@ -24,4 +24,12 @@ public class Wallet {
 
     @Column(nullable = false, columnDefinition = "DECIMAL(10, 2)")
     private BigDecimal balance;
+
+    public void addValue(BigDecimal value) {
+        this.balance = this.balance.add(value);
+    }
+
+    public void removeValue(BigDecimal value) {
+        this.balance = this.balance.subtract(value);
+    }
 }

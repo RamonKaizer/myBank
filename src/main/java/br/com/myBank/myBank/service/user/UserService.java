@@ -2,7 +2,7 @@ package br.com.myBank.myBank.service.user;
 
 import br.com.myBank.myBank.domain.user.User;
 import br.com.myBank.myBank.domain.wallet.Wallet;
-import br.com.myBank.myBank.exception.ErroException;
+import br.com.myBank.myBank.exception.ErrorBadRequestException;
 import br.com.myBank.myBank.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,11 +23,7 @@ public class UserService {
     public User saveUser(User user) {
         createSettingsUser(user);
 
-        try {
-            return repository.save(user);
-        } catch (RuntimeException e) {
-            throw new ErroException("error saving user", e);
-        }
+        return repository.save(user);
     }
 
     private void createSettingsUser(User user) {
@@ -42,8 +38,7 @@ public class UserService {
 
     public User getUserbyId(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new ErroException("User não encontrado com o ID: " + id));
-
+                .orElseThrow(() -> new ErrorBadRequestException("User not found ID: " + id));
     }
 
 }

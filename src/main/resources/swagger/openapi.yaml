@@ -68,6 +68,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+        "502":
+          description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
 components:
   schemas:
@@ -146,20 +152,3 @@ components:
         detailedMessage:
           type: string
           example: "SQL Exception -- etc"
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Erro'
-
-    Erro:
-      type: object
-      properties:
-        class:
-          type: string
-          example: "User"
-        field:
-          type: string
-          example: "User.email"
-        error:
-          type: string
-          example: "Campo nao pode ser nulo"

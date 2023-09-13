@@ -9,18 +9,19 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
 @Builder
-@EqualsAndHashCode(of = "id")
-@ToString(of = "id")
+@EqualsAndHashCode(of = "transactionalId")
+@ToString(of = "transactionalId")
 @Table(name = "transaction")
 public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long transactionalId;
 
     @ManyToOne
     @JoinColumn(name = "payer_id")
@@ -30,7 +31,16 @@ public class Transaction {
     @JoinColumn(name = "payee_id")
     private User payee;
 
+    @Column(nullable = false, columnDefinition = "DECIMAL(10, 2)")
     private BigDecimal value;
+
+    @Column(nullable = false)
+    private LocalDateTime transactionTime;
+
+    @PrePersist
+    protected void onCreate() {
+        this.transactionTime = LocalDateTime.now();
+    }
 
     public boolean checkPayerUserType() {
         return this.getPayer().getUserType().equals(EnumUserType.PESSOA_JURIDICA);

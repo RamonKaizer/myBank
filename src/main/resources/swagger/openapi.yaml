@@ -17,8 +17,40 @@ tags:
     description: Operations about user
   - name: transaction
     description: Operations about transfer
+  - name: login
+    description: Login with email and password
+
+security:
+  - bearerAuth: []
 
 paths:
+  /login:
+    post:
+      tags:
+        - login
+      summary: Login
+      description: login.
+      operationId: login
+      requestBody:
+        description: body with email and password
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
   /user:
     post:
       tags:
@@ -45,6 +77,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+
   /transaction:
     post:
       tags:
@@ -74,9 +107,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - bearerAuth: []
 
 components:
   schemas:
+
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          example: john@gmail.com
+        password:
+          type: string
+          format: password
+          example: "1234567"
+
+    TokenResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkludGVyZXNpIHRvIFVzdWFyaW8iLCJpYXQiOjE2MzE0Njg0MDAsImV4cCI6MTYzMTQ3MjAwMH0.IozwglqrzSv7_S0TkXkfMTksIzGgk8tvYxCZXxI2U2A"
+
     UserRequest:
       type: object
       properties:
@@ -85,7 +139,7 @@ components:
           example: John Kennedy
         email:
           type: string
-          example: john@email.com
+          example: john@gmail.com
         password:
           type: string
           format: password
@@ -124,6 +178,7 @@ components:
           format: decimal
           example: 992.95
 
+
     TransactionRequest:
       type: object
       properties:
@@ -152,3 +207,9 @@ components:
         detailedMessage:
           type: string
           example: "SQL Exception -- etc"
+
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

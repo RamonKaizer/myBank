@@ -1,7 +1,7 @@
 package br.com.myBank.myBank.domain.transaction;
 
 import br.com.myBank.myBank.domain.enums.EnumUserType;
-import br.com.myBank.myBank.domain.user.User;
+import br.com.myBank.myBank.domain.user.Account;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -25,11 +25,11 @@ public class Transaction {
 
     @ManyToOne
     @JoinColumn(name = "payer_id")
-    private User payer;
+    private Account payer;
 
     @ManyToOne
     @JoinColumn(name = "payee_id")
-    private User payee;
+    private Account payee;
 
     @Column(nullable = false, columnDefinition = "DECIMAL(10, 2)")
     private BigDecimal value;

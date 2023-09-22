@@ -1,6 +1,6 @@
 package br.com.myBank.myBank.service.user;
 
-import br.com.myBank.myBank.domain.user.User;
+import br.com.myBank.myBank.domain.user.Account;
 import br.com.myBank.myBank.domain.wallet.Wallet;
 import br.com.myBank.myBank.exception.ErrorBadRequestException;
 import br.com.myBank.myBank.repository.user.UserRepository;
@@ -20,25 +20,28 @@ public class UserService {
     @Autowired
     private UserRepository repository;
 
-    public User saveUser(User user) {
-        createSettingsUser(user);
+    public Account saveUser(Account account) {
+        createSettingsUser(account);
 
-        return repository.save(user);
+        //return repository.save(account);
+        return null;
     }
 
-    private void createSettingsUser(User user) {
+    private void createSettingsUser(Account account) {
         Wallet wallet = Wallet.builder()
                 .accountNumber(String.valueOf(UUID.randomUUID()))
                 .balance(BigDecimal.ZERO)
                 .build();
 
-        user.addWallet(wallet);
-        user.checkUserType();
+        account.addWallet(wallet);
+        account.checkUserType();
     }
 
-    public User getUserbyId(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new ErrorBadRequestException("User not found ID: " + id));
+    public Account getUserbyId(Long id) {
+//        return repository.findById(id)
+//                .orElseThrow(() -> new ErrorBadRequestException("User not found ID: " + id));
+
+        return null;
     }
 
 }

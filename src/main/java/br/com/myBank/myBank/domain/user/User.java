@@ -1,28 +1,28 @@
 package br.com.myBank.myBank.domain.user;
 
-import br.com.myBank.myBank.domain.enums.EnumUserType;
-import br.com.myBank.myBank.domain.transaction.Transaction;
-import br.com.myBank.myBank.domain.wallet.Wallet;
+import br.com.myBank.myBank.domain.enums.UserRole;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-@Entity
-@Data
-@EqualsAndHashCode(of = "userId")
-@ToString(of = "userId")
-@Table(name = "user")
-public class User {
+@Table(name = "users")
+@Entity(name = "users")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
+public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
-
-    @Column(nullable = false)
-    private String fullName;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -30,32 +30,47 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, unique = true)
-    private String cpfCnpj;
-
     @Enumerated(value = EnumType.STRING)
-    private EnumUserType userType;
+    private UserRole role;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    private Wallet wallet;
+    private Account account;
 
-    @OneToMany(mappedBy = "payer")
-    private List<Transaction> transactionAsPayer = new ArrayList<>();
-
-    @OneToMany(mappedBy = "payee")
-    private List<Transaction> transactionAsPayee = new ArrayList<>();
-
-    public void addWallet(Wallet wallet){
-        this.wallet = wallet;
+    public User(String login, String password, UserRole role){
+        this.email = login;
+        this.password = password;
+        this.role = role;
+        this.account = getAccount();
     }
 
-    public void checkUserType() {
-        long LENGTH_CPF = 11;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
 
-        if(this.cpfCnpj.length() == LENGTH_CPF) {
-            this.setUserType(EnumUserType.PESSOA_FISICA);
-        } else {
-            this.setUserType(EnumUserType.PESSOA_JURIDICA);
-        }
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

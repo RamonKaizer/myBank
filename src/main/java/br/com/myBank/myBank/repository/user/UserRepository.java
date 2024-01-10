@@ -1,7 +1,6 @@
 package br.com.myBank.myBank.repository.user;
 
-import br.com.myBank.myBank.domain.user.Account;
-import br.com.myBank.myBank.domain.user.User;
+import br.com.myBank.myBank.domain.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;

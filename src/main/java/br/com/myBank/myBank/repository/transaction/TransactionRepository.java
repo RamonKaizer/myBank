@@ -1,6 +1,6 @@
 package br.com.myBank.myBank.repository.transaction;
 
-import br.com.myBank.myBank.domain.transaction.Transaction;
+import br.com.myBank.myBank.domain.entity.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

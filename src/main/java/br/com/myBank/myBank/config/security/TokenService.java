@@ -1,6 +1,6 @@
 package br.com.myBank.myBank.config.security;
 
-import br.com.myBank.myBank.domain.user.User;
+import br.com.myBank.myBank.domain.entity.User;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;

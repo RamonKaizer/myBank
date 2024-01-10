@@ -1,4 +1,4 @@
-package br.com.myBank.myBank.domain.wallet;
+package br.com.myBank.myBank.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

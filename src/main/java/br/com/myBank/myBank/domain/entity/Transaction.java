@@ -1,7 +1,6 @@
-package br.com.myBank.myBank.domain.transaction;
+package br.com.myBank.myBank.domain.entity;
 
 import br.com.myBank.myBank.domain.enums.EnumUserType;
-import br.com.myBank.myBank.domain.user.Account;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;

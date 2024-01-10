@@ -24,10 +24,10 @@ security:
   - bearerAuth: []
 
 paths:
-  /login:
+  /user/login:
     post:
       tags:
-        - login
+        - user
       summary: Login
       description: login.
       operationId: login
@@ -50,8 +50,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - bearerAuth: [ ]
 
-  /user:
+  /user/register:
     post:
       tags:
         - user
@@ -67,16 +69,14 @@ paths:
       responses:
         "200":
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CreatedUserResponse'
         "400":
           description: Bad Request
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - bearerAuth: [ ]
 
   /transaction:
     post:

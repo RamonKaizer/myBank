@@ -1,6 +1,6 @@
 package br.com.myBank.myBank.service.transaction;
 
-import br.com.myBank.myBank.domain.transaction.Transaction;
+import br.com.myBank.myBank.domain.entity.Transaction;
 import br.com.myBank.myBank.exception.ErrorBadRequestException;
 import br.com.myBank.myBank.repository.transaction.TransactionRepository;
 import br.com.myBank.myBank.service.user.UserService;

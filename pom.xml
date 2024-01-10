@@ -19,7 +19,7 @@
 		</openapi.generator.maven.plugin.inputSpec>
 		<openapi.generator.maven.plugin.configOptions.reactive>false
 		</openapi.generator.maven.plugin.configOptions.reactive>
-		<springdoc.openapi.ui.version>2.2.0</springdoc.openapi.ui.version>
+		<springdoc.openapi.ui.version>2.3.0</springdoc.openapi.ui.version>
 		<javax-annotation-api.version>1.3.2</javax-annotation-api.version>
 	</properties>
 	<dependencies>
@@ -111,6 +111,11 @@
 			<artifactId>java-jwt</artifactId>
 			<version>4.4.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.7.0</version>
+		</dependency>
 	</dependencies>
 
 	<repositories>
@@ -186,7 +191,7 @@
 				<plugin>
 					<groupId>org.openapitools</groupId>
 					<artifactId>openapi-generator-maven-plugin</artifactId>
-					<version>5.4.0</version>
+					<version>7.2.0</version>
 					<configuration>
 						<generatorName>spring</generatorName>
 						<supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>

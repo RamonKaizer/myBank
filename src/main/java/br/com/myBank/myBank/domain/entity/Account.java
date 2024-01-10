@@ -1,17 +1,12 @@
-package br.com.myBank.myBank.domain.user;
+package br.com.myBank.myBank.domain.entity;
 
 import br.com.myBank.myBank.domain.enums.EnumUserType;
-import br.com.myBank.myBank.domain.enums.UserRole;
-import br.com.myBank.myBank.domain.transaction.Transaction;
-import br.com.myBank.myBank.domain.wallet.Wallet;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.springframework.security.core.GrantedAuthority;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Entity

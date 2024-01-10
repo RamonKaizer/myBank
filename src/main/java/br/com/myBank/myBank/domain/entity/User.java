@@ -1,11 +1,8 @@
-package br.com.myBank.myBank.domain.user;
+package br.com.myBank.myBank.domain.entity;
 
 import br.com.myBank.myBank.domain.enums.UserRole;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +12,7 @@ import java.util.List;
 
 @Table(name = "users")
 @Entity(name = "users")
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")

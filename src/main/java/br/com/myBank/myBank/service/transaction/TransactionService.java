@@ -4,11 +4,14 @@ import br.com.myBank.myBank.domain.entity.Transaction;
 import br.com.myBank.myBank.exception.ErrorBadRequestException;
 import br.com.myBank.myBank.repository.transaction.TransactionRepository;
 import br.com.myBank.myBank.service.user.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import jakarta.transaction.Transactional;
 import jar.presentation.representation.TransactionRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -27,14 +30,18 @@ public class TransactionService {
 
     @Transactional
     public void makeTransfer(TransactionRequest request) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-            Transaction transaction = createTransaction(request);
+        String userDetails = authentication.getName();
 
-            transactionValidation(transaction);
 
-            updateBalance(transaction);
+        Transaction transaction = createTransaction(request);
 
-            repository.save(transaction);
+        transactionValidation(transaction);
+
+        updateBalance(transaction);
+
+        repository.save(transaction);
     }
 
     private Transaction createTransaction(TransactionRequest request) {

@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
@@ -30,7 +29,7 @@ public class AuthorizationTransactionService {
 
             return Objects.requireNonNull(response.getBody()).get("message").equals("Autorizado");
 
-        }catch(HttpServerErrorException e) {
+        }catch(Exception e) {
             throw new ErrorBadGatewayException("Error calling external transaction authorizer.");
         }
     }

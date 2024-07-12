@@ -1,4 +1,4 @@
-package br.com.myBank.myBank.service;
+package br.com.myBank.myBank.service.user;
 
 import br.com.myBank.myBank.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

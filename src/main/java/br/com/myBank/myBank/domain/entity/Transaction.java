@@ -13,14 +13,14 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @Builder
-@EqualsAndHashCode(of = "transactionalId")
-@ToString(of = "transactionalId")
-@Table(name = "transaction")
+@EqualsAndHashCode(of = "id")
+@ToString(of = "id")
+@Table(name = "transactions")
 public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long transactionalId;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "payer_id")

@@ -11,15 +11,14 @@ import java.util.Collection;
 import java.util.List;
 
 @Table(name = "users")
-@Entity(name = "users")
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false, unique = true)
     private String email;

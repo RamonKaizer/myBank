@@ -11,13 +11,13 @@ import java.util.List;
 
 @Entity
 @Data
-@EqualsAndHashCode(of = "accountId")
-@ToString(of = "accountId")
-@Table(name = "account")
+@EqualsAndHashCode(of = "id")
+@ToString(of = "id")
+@Table(name = "accounts")
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long accountId;
+    private Long id;
 
     @Column(nullable = false)
     private String fullName;

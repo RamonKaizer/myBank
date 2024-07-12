@@ -1,17 +1,17 @@
 package br.com.myBank.myBank.service.transaction;
 
+import br.com.myBank.myBank.domain.entity.Account;
 import br.com.myBank.myBank.domain.entity.Transaction;
+import br.com.myBank.myBank.domain.entity.User;
 import br.com.myBank.myBank.exception.ErrorBadRequestException;
 import br.com.myBank.myBank.repository.transaction.TransactionRepository;
+import br.com.myBank.myBank.service.account.AccountService;
 import br.com.myBank.myBank.service.user.UserService;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import jakarta.transaction.Transactional;
 import jar.presentation.representation.TransactionRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -26,16 +26,17 @@ public class TransactionService {
     private UserService userService;
 
     @Autowired
+    private AccountService accountService;
+
+    @Autowired
     private AuthorizationTransactionService authorizationTransactionService;
 
     @Transactional
     public void makeTransfer(TransactionRequest request) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        String userDetails = authentication.getName();
+        User user = userService.getUserLogin();
 
-
-        Transaction transaction = createTransaction(request);
+        Transaction transaction = createTransaction(request, user.getAccount());
 
         transactionValidation(transaction);
 
@@ -44,10 +45,10 @@ public class TransactionService {
         repository.save(transaction);
     }
 
-    private Transaction createTransaction(TransactionRequest request) {
+    private Transaction createTransaction(TransactionRequest request, Account payee) {
         return Transaction.builder()
-                .payer(userService.getUserbyId(request.getPayer()))
-                .payee(userService.getUserbyId(request.getPayee()))
+                .payer(payee)
+                .payee(accountService.getAccountbyId(request.getPayee()))
                 .value(request.getValue())
                 .build();
     }
@@ -61,7 +62,7 @@ public class TransactionService {
             throw new ErrorBadRequestException("Payer don't have balance for make this transfer!");
         }
 
-        if(authorizationTransactionService.authorizeTransaction()) {
+        if(!authorizationTransactionService.authorizeTransaction()) {
             throw new ErrorBadRequestException("Denied by external authorizer.");
         }
     }

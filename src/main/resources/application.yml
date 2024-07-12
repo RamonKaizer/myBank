@@ -1,15 +1,15 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/mybank
+    url: jdbc:mysql://localhost:3306/myBank
     username: root
-    password: 97505020
+    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
   application:
     name: myBank
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: true
     properties:
       hibernate:
@@ -22,7 +22,7 @@ management:
       exposure:
         include: health
 hosts:
-  authorization: https://run.mocky.io/v3/8fafdd68-a090-496f-8c9a-3442cf30dae6
+  authorization: https://run.mocky.io/v3/73dc322c-533c-4e9f-8d51-4cc8928332dc
 info:
   db-status: "OK"
   app-status: "OK"

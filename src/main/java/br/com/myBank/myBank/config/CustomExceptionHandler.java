@@ -1,4 +1,4 @@
-package br.com.myBank.myBank.rest.advice;
+package br.com.myBank.myBank.config;
 
 import br.com.myBank.myBank.exception.ErrorBadGatewayException;
 import br.com.myBank.myBank.exception.ErrorBadRequestException;

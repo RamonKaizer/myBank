@@ -101,6 +101,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+
         "502":
           description: Bad Gateway
           content:
@@ -109,6 +110,39 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
       security:
         - bearerAuth: []
+
+  /wallet/deposit:
+    post:
+      tags:
+        - wallet - deposit
+      summary: Make deposit
+      description: make deposit in your account
+      operationId: makeDeposit
+      requestBody:
+        description: Value of deposit
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Deposit'
+      responses:
+        "200":
+          description: OK
+
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+        "502":
+          description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - bearerAuth: [ ]
 
 components:
   schemas:
@@ -178,14 +212,17 @@ components:
           format: decimal
           example: 992.95
 
+    Deposit:
+      type: object
+      properties:
+        value:
+          type: number
+          format: decimal
+          example: 992.95
 
     TransactionRequest:
       type: object
       properties:
-        payer:
-          type: integer
-          format: int64
-          example: 1
         payee:
           type: integer
           format: int64

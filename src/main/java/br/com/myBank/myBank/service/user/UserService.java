@@ -1,21 +1,22 @@
 package br.com.myBank.myBank.service.user;
 
-import br.com.myBank.myBank.domain.enums.UserRole;
 import br.com.myBank.myBank.domain.entity.Account;
 import br.com.myBank.myBank.domain.entity.User;
 import br.com.myBank.myBank.domain.entity.Wallet;
+import br.com.myBank.myBank.domain.enums.UserRole;
 import br.com.myBank.myBank.repository.user.UserRepository;
 import jar.presentation.representation.UserRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 @Slf4j
 @Service
@@ -51,7 +52,6 @@ public class UserService {
         account.setCpfCnpj(request.getCpfCnpj());
 
         Wallet wallet = Wallet.builder()
-                .accountNumber(String.valueOf(UUID.randomUUID()))
                 .balance(BigDecimal.ZERO)
                 .build();
 
@@ -61,11 +61,11 @@ public class UserService {
         return account;
     }
 
-    public Account getUserbyId(Long id) {
-//        return repository.findById(id)
-//                .orElseThrow(() -> new ErrorBadRequestException("User not found ID: " + id));
+    public User getUserLogin() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        return null;
+        String payeeEmail = authentication.getName();
+
+        return repository.findByEmail(payeeEmail);
     }
-
 }

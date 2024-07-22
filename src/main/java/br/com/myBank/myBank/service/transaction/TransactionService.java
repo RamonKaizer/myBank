@@ -58,6 +58,10 @@ public class TransactionService {
             throw new ErrorBadRequestException("It's not possible to send amounts from a merchant user!");
         }
 
+        if(transaction.getPayee().getId().equals(transaction.getPayer().getId())) {
+            throw new ErrorBadRequestException("It is not possible to transfer value to your own account.");
+        }
+
         if(transaction.checkPayerBalance()) {
             throw new ErrorBadRequestException("Payer don't have balance for make this transfer!");
         }

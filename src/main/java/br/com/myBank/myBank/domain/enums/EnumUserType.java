@@ -5,5 +5,6 @@ import lombok.Getter;
 @Getter
 public enum EnumUserType {
     PESSOA_FISICA(),
-    PESSOA_JURIDICA()
+    PESSOA_JURIDICA(),
+    TESTE_PERSON
 }
